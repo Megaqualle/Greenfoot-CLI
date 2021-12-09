@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class cli extends World
 {
-    private final char[][] cliMap = new char[31][17];
+    final int[][] cliMap = new int[31][17];
     int x, y, cursorX, cursorY;
     char type = 'a';
     /**
@@ -24,18 +24,20 @@ public class cli extends World
         //Greenfoot.start();
         for(x = 0; x < 31; x++) {
             for (y = 0; y < 17; y++) {
-                cliMap[x][y] = '`';
+                cliMap[x][y] = 77;
             }
         }
         cursorX = 0;
         cursorY = 0;
+        x = 1;
+        y = 2;
     }
-    Font font = new Font(type);
+    Font font = new Font((char)cliMap[x][y]);
 
     public void act(){
        for(x = 0; x < 31; x++) {
            for (y = 0; y < 17; y++) {
-               type = cliMap[x][y];
+               type = (char)cliMap[x][y];
                addObject(font, x, y);
                //System.out.print(cliMap[x][y]);
                //System.out.print(cursorX);
