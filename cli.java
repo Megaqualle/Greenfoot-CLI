@@ -1,5 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.List;
+
+import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 
 /**
  * Write a description of class MyWorld here.
@@ -7,11 +12,11 @@ import java.util.List;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class cli extends World
+public class cli extends World implements KeyListener
 {
-    final int[][] cliMap = new int[31][17];
-    int x, y, cursorX, cursorY;
-    char type = 'a';
+    final int[][] cliMap = new int[32][18];
+    int cursorX, cursorY;
+    static char keyIn = 'e';
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -21,24 +26,24 @@ public class cli extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(32, 18, 40);
         setBackground("images/background.jpg");
+        addKeyListener(this);
         //Greenfoot.start();
-        for(x = 0; x < 31; x++) {
-            for (y = 0; y < 17; y++) {
-                cliMap[x][y] = 77;
+        for(int i = 0; i < cliMap.length; i++) {
+            for (int j = 0; j < cliMap[0].length; j++) {
+                cliMap[i][j] = 127;
             }
         }
         cursorX = 0;
         cursorY = 0;
-        x = 1;
-        y = 2;
     }
-    Font font = new Font((char)cliMap[x][y]);
+    //Font font = new Font((char)cliMap[x][y]);
 
     public void act(){
-       for(x = 0; x < 31; x++) {
-           for (y = 0; y < 17; y++) {
-               type = (char)cliMap[x][y];
-               addObject(font, x, y);
+       for(int i = 0; i < cliMap.length; i++) {
+           for (int j = 0; j < cliMap[0].length; j++) {
+               Font font = new Font(cliMap[i][j]);
+               //type = cliMap[i][j];
+               addObject(font, i, j);
                //System.out.print(cliMap[x][y]);
                //System.out.print(cursorX);
                //System.out.print(cursorY);
@@ -46,7 +51,28 @@ public class cli extends World
                //System.out.print(y);
            }
        }
-       x = 0; y = 0;
    }
+   public static int asciiToInt(char in){
+       //return Integer.parseInt(String.valueOf(in));
+       int ascii = in;
+       System.out.print(ascii+"\n");
+       return ascii;
+   }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        char key = e.getKeyChar();
+        asciiToInt(key);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent keyEvent) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent keyEvent) {
+
+    }
 }
 
