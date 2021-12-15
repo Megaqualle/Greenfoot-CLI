@@ -39,7 +39,7 @@ public class Font extends Actor {
        //         setImage("font/dark/"+type+".png");
        //         break;
        // }
-        System.out.print(type+".png\n");
+       // System.out.print(type+".png\n");
         setImage("font/dark/"+type+".png");
     }
 }
