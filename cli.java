@@ -37,6 +37,8 @@ public class cli extends World
         switch (Util.getOS()) {
             case LINUX:
             case MAC:
+                pwd.add("$");
+                pwd.add(" ");
                 pwd.add("/");
                 pwd.add(" ");
                 redraw();
@@ -44,7 +46,8 @@ public class cli extends World
             case WINDOWS:
                 pwd.add("C");
                 pwd.add(":");
-                pwd.add(String.valueOf(92));
+                pwd.add("\\");
+                pwd.add(" ");
                 redraw();
                 break;
             case GENERIC:
