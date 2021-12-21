@@ -1,12 +1,15 @@
 ------------------------------------------------------------------------
-This is the project README file. Here, you should describe your project.
-Tell the reader (someone who does not know anything about this project)
-all they need to know. The comments should usually include at least:
+     ____.                             _________  .____     .___  
+    |    |_____  ___  _______          \_   ___ \ |    |    |   | 
+    |    |\__  \ \  \/ /\__  \   ______/    \  \/ |    |    |   | 
+/\__|    | / __ \_\   /  / __ \_/_____/\     \____|    |___ |   | 
+\________|(____  / \_/  (____  /        \______  /|_______ \|___| 
+               \/            \/                \/         \/      
+                                                                  
 ------------------------------------------------------------------------
 
-PROJECT TITLE:
-PURPOSE OF PROJECT:
-VERSION or DATE:
-HOW TO START THIS PROJECT:
-AUTHORS:
-USER INSTRUCTIONS:
+PROJECT TITLE: Java CLI
+PURPOSE OF PROJECT: School Project
+VERSION or DATE: 12/21/2021
+HOW TO START THIS PROJECT: Open the project.greenfoot file with Greenfoot.
+USER INSTRUCTIONS: Press run
