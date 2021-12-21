@@ -1,5 +1,5 @@
 #BlueJ class context
 comment0.target=Font
 comment1.params=type
-comment1.target=Font(int)
+comment1.target=Font(java.lang.String)
 numComments=2
