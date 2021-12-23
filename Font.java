@@ -4,15 +4,12 @@ import java.util.Objects;
 
 public class Font extends Actor
 {
-    public Font(String type) {
-        if ("no".equals(type)) {
+    public Font(char type) {
+        if (type == ' ') {
             setImage("font/dark/127.png");
-        }
-        else if (type != null) {
-            setImage("font/dark/" + cli.asciiToInt(type) + ".png");
         }
         else {
-            setImage("font/dark/127.png");
+            setImage("font/dark/" + cli.asciiToInt(type) + ".png");
         }
     }
 }

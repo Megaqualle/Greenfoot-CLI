@@ -12,10 +12,11 @@ import java.util.List;
  * @version (a version number or a date)
  */
 public class cli extends World {
-    final String[][] cliMap = new String[64][36];    // Map of displayed characters
+    final char[][] cliMap = new char[64][36];    // Map of displayed characters
     int cursorX;   // Position of cursor
-    List<String> pwd = new ArrayList<>(Arrays.asList()); // position in fs
-    String key;   // keyboard input
+    List<Character> pwd = new ArrayList<>(List.of()); // position in fs
+    String keyboardInput;   // keyboard input
+    char key;
     boolean init = false;   // Redraw once upon starting the program
 
     /**
@@ -28,23 +29,23 @@ public class cli extends World {
         //Greenfoot.start();
         for (int i = 0; i < cliMap.length; i++) {
             for (int j = 0; j < cliMap[0].length; j++) {
-                cliMap[i][j] = "no";    // Make sure no null-pointer are in the array.
+                cliMap[i][j] = ' ';    // Make sure no null-pointer are in the array.
             }
         }
-        Arrays.fill(buffer, "no");  // Make sure no null-pointers are in the buffer
+        Arrays.fill(buffer, ' ');  // Make sure no null-pointers are in the buffer
 
         switch (Util.getOS()) {
             case LINUX:
             case MAC:
-                pwd.add("/");
-                pwd.add("$");
-                pwd.add(" ");
+                pwd.add('/');
+                pwd.add('$');
+                pwd.add(' ');
                 break;
             case WINDOWS:
-                pwd.add("C");
-                pwd.add(":");
-                pwd.add("\\");
-                pwd.add(" ");
+                pwd.add('C');
+                pwd.add(':');
+                pwd.add('\\');
+                pwd.add(' ');
                 break;
             case GENERIC:
                 System.out.print("This program can only run on *nix or Windows/DOS Operating Systems");
@@ -54,7 +55,7 @@ public class cli extends World {
         redraw();
     }
 
-    String[] buffer = new String[cliMap.length - 1];    // Buffer for input
+    char[] buffer = new char[cliMap.length - 1];    // Buffer for input
     //Font font = new Font((char)cliMap[x][y]);
 
     public void main() {
@@ -66,8 +67,8 @@ public class cli extends World {
         input();
     }
 
-    public static int asciiToInt(String in) {    // Convert input string to ascii/UTF-8 value
-        return in.charAt(0);
+    public static int asciiToInt(char in) {    // Convert input string to ascii/UTF-8 value
+        return in;
     }
 
     public void redraw() {   // Redraw the screen
@@ -96,12 +97,18 @@ public class cli extends World {
 
     public void input() {
 
-        key = Greenfoot.getKey();   // Attempt to register a keypress and abort if there were none
-        if (key != null) {
-            switch (key) {
-                case "up":                  // Arrow keys to move cursor
-                    break;
+        keyboardInput = Greenfoot.getKey();   // Attempt to register a keypress and abort if there were none
+        if (keyboardInput != null) {
+            switch (keyboardInput) {
+                case "up":
                 case "down":
+                case "control":
+                case "tab":
+                case "shift":
+                case "alt":
+                case "alt graph":
+                case "windows":
+                case "undefined":
                     break;
                 case "right":
                     if (cursorX < buffer.length - 1) {
@@ -116,7 +123,12 @@ public class cli extends World {
                     }
                     break;
                 case "enter":   // Move everything in the buffer onto the map, and push everything else up by one
-                    String[][] mapBuffer = new String[cliMap.length][cliMap[0].length + 1];   // Buffer for map, y-axis is increased by one
+                    char[][] mapBuffer = new char[cliMap.length][cliMap[0].length + 1];   // Buffer for map, y-axis is increased by one
+                   for (int i = 0; i < mapBuffer.length; i++) {
+                       for (int j = 0; j < mapBuffer[0].length; j++) {
+                           mapBuffer[i][j] = ' ';
+                       }
+                   }
                     for (int i = 0; i < cliMap.length; i++) {    // Write the map onto the map buffer, moved by one y
                         for (int j = 0; j < cliMap[0].length; j++) {
                             mapBuffer[i][j + 1] = cliMap[i][j];
@@ -127,15 +139,15 @@ public class cli extends World {
                         mapBuffer[i - pwd.size()][0] = buffer[i];
                     }
 
-                    mapBuffer[buffer.length-(pwd.size()+1)][0] = "\n";  // Place newline character
+                    mapBuffer[buffer.length-(pwd.size()+1)][0] = '\n';  // Place newline character
 
                     for (int i = cliMap[0].length; i > cliMap[0].length - pwd.size(); i--) {
                         for (int j = pwd.size(); j > buffer.length - pwd.size(); j--) {
-                            mapBuffer[i][j] = "no";
+                            mapBuffer[i][j] = ' ';
                         }
                     }
 
-                    Arrays.fill(buffer, "no");  // Empty input buffer
+                    Arrays.fill(buffer, ' ');  // Empty input buffer
 
                     for (int i = 0; i < cliMap.length; i++) {   // Write the map buffer back onto the map
                         for (int j = 0; j < cliMap[0].length; j++) {
@@ -145,39 +157,29 @@ public class cli extends World {
                     cursorX = pwd.size();
                     redraw();   // Redraw the screen
                     break;
-                case "control":
-                    break;
-                case "tab":
-                    break;
-                case "shift":
-                    break;
-                case "alt":
-                case "alt graph":
-                    break;
                 case "backspace":
                     if (cursorX > pwd.size()) {
                         cursorX--;
-                        buffer[cursorX] = "no";
+                        buffer[cursorX] = ' ';
                     }
                     redraw();
                     break;
-                case "windows":
-                    break;
                 case "space":
-                    buffer[cursorX] = "no";
+                    buffer[cursorX] = ' ';
                     cursorX++;
                     redraw();
                     break;
                 default:
+                    key = keyboardInput.charAt(0);
                     if (cursorX < buffer.length - 1) { // Check if the input buffer is full
                         int keyInt = cli.asciiToInt(key);
-                        if ("no".equals(key)) {
+                        if (key == ' ') {
                             buffer[cursorX] = key;  // Write input into buffer
                             redraw();
                         }
                         else  if (isBetween(keyInt, 97, 122)) {
                              if (Greenfoot.isKeyDown("shift")) {
-                                 buffer[cursorX] = Character.toString(keyInt-32);  // Write input into buffer
+                                 buffer[cursorX] = (char)(keyInt-32);  // Write input into buffer
                              } else {
                                  buffer[cursorX] = key;  // Write input into buffer
                              }
@@ -260,7 +262,7 @@ public class cli extends World {
                                     }
                                     break;
                             }
-                            buffer[cursorX] = Character.toString(keyIntShift);  // Write input into buffer
+                            buffer[cursorX] = (char)(keyIntShift);  // Write input into buffer
                         }
                       }
                     cursorX++;  // Move cursor to the right by one
