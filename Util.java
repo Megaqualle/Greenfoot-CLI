@@ -1,8 +1,16 @@
+import greenfoot.Greenfoot;
+
 public class Util {
     public enum OS {
         WINDOWS, LINUX, MAC, GENERIC
     }
     private static OS os = null;
+    public static void panicHandler(int in) {
+        if (in == 255) {
+            System.out.print("A program panicked");
+            Greenfoot.stop();
+        }
+    }
     public static OS getOS() {
         if (os == null) {
             String operSys = System.getProperty("os.name").toLowerCase();
