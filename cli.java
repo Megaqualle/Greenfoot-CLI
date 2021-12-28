@@ -1,5 +1,4 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,10 +19,11 @@ public class cli extends World {
     List<Character> pwd = new ArrayList<>(List.of()); // Position in fs
     List<Character> prefix = new ArrayList<>(List.of());    // Prefix
     char[] pwdA = new char[cliMap.length-1];
+    String[] stack = new String[0xff];
+    int stackPointer = 0xff;
     String keyboardInput;   // keyboard input
     char key;
     char directorySplitter;
-    boolean init = false;   // Redraw once upon starting the program
 
     /**
      * Constructor for objects of class MyWorld.
@@ -32,13 +32,6 @@ public class cli extends World {
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(64, 36, 25);
         setBackground("images/background.jpg");
-        //Greenfoot.start();
-        for (int i = 0; i < cliMap.length; i++) {
-            for (int j = 0; j < cliMap[0].length; j++) {
-                cliMap[i][j] = ' ';    // Make sure no null-pointer are in the array.
-            }
-        }
-        Arrays.fill(buffer, ' ');  // Make sure no null-pointers are in the buffer
 
         switch (Util.getOS()) {
             case LINUX:
@@ -69,12 +62,7 @@ public class cli extends World {
     char[] buffer = new char[cliMap.length - 1];    // Buffer for input
     //Font font = new Font((char)cliMap[x][y]);
 
-    public void main() {
-    }
-
     public void act() {
-        if (!init) {
-        }
         input();
     }
 
@@ -320,7 +308,14 @@ public class cli extends World {
                 Util.panicHandler(this.cd(parameter));
                 break;
             case "print":
+            case "echo":
                 Util.panicHandler(this.print(parameter));
+                break;
+            case "clear":
+                Util.panicHandler(this.clear());
+                break;
+            case "exit":
+                this.exit();
             default:
                 break;
         }
@@ -390,7 +385,7 @@ public class cli extends World {
             }
         }
         else {
-            this.print("/"+ in + " is not a Directory");
+            this.print("/" + in + " is not a Directory");
         }
         return 0;
     }
@@ -408,6 +403,38 @@ public class cli extends World {
             }
         }
         newline();
+        return 0;
+    }
+
+    public int clear() {
+        for (int i = 0; i < cliMap.length; i++) {
+            for (int j = 0; j < cliMap[0].length; j++) {
+                cliMap[i][j] = ' ';
+            }
+        }
+        return 0;
+    }
+
+    public void exit() {
+        Greenfoot.stop();
+    }
+
+    public int push(String parameter) {
+        stack[stackPointer] = parameter;
+        if (stackPointer == 0x00) {
+            stackPointer = 0xff;
+        }
+        else {
+            stackPointer--;
+        }
+        return 0;
+    }
+
+    public int pop() {
+        for (int i = 0; i < stack[stackPointer].length(); i++) {
+            buffer[i+ prefix.size()] = stack[stackPointer].charAt(i);
+        }
+        stackPointer++;
         return 0;
     }
 }
