@@ -19,7 +19,7 @@ public class cli extends World {
     List<Character> pwd = new ArrayList<>(List.of()); // Position in fs
     List<Character> prefix = new ArrayList<>(List.of());    // Prefix
     char[] pwdA = new char[cliMap.length-1];
-    String[] stack = new String[0xff];
+    String[] stack = new String[0xff+1];
     int stackPointer = 0xff;
     String keyboardInput;   // keyboard input
     char key;
@@ -56,6 +56,7 @@ public class cli extends World {
         for (int i = 0; i < pwd.size(); i++) {
             pwdA[i] = pwd.get(i);
         }
+        Arrays.fill(stack, " ");
         redraw();
     }
 
@@ -427,6 +428,7 @@ public class cli extends World {
 
     public int push(String parameter) {
         stack[stackPointer] = parameter;
+        System.out.print("push: " + stackPointer + "\n");
         if (stackPointer == 0x00) {
             stackPointer = 0xff;
         }
@@ -437,10 +439,18 @@ public class cli extends World {
     }
 
     public int pop() {
-        for (int i = 0; i < stack[stackPointer].length(); i++) {
-            buffer[i+ prefix.size()] = stack[stackPointer].charAt(i);
+        if (stackPointer == 0xff) {
+            stackPointer = 0x00;
         }
-        stackPointer++;
+        else {
+            stackPointer++;
+        }
+        System.out.print("pop: " + stackPointer + "\n");
+        /*for (int i = 0; i < stack[stackPointer].length(); i++) {
+            buffer[i+ prefix.size()] = stack[stackPointer].charAt(i);
+        }*/
+        print(stack[stackPointer]);
+        redraw();
         return 0;
     }
 }
