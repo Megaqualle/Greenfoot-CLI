@@ -316,6 +316,12 @@ public class cli extends World {
                 break;
             case "exit":
                 this.exit();
+            case "push":
+                this.push(parameter);
+                break;
+            case "pop":
+                this.pop();
+                break;
             default:
                 break;
         }
