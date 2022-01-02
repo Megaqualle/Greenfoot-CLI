@@ -35,14 +35,14 @@ public class Util {
             switch (in.charAt(i)) {
                 case '[':
                     if (loopOpen) {
-                        return false;
+                        return true;
                     }
                     else {
                         loopOpen = true;
                     }
                 case ']':
                     if (!loopOpen) {
-                        return false;
+                        return true;
                     }
                     else {
                         loopOpen = false;

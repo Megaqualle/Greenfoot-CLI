@@ -1,8 +1,8 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Stack;
@@ -68,9 +68,7 @@ public class cli extends World {
         input();
     }
 
-    public static int asciiToInt(char in) {    // Convert input string to ascii/UTF-8 value
-        return in;
-    }
+    public static int asciiToInt(char in) {return in; }    // Convert input string to ascii/UTF-8 value
 
     public void redraw() {   // Redraw the screen
         List<Actor> objects = getObjects(null);
@@ -405,7 +403,7 @@ public class cli extends World {
         int offset = 0;
         Arrays.fill(buffer, ' ');
         while (i < parameter.length()) {
-            buffer[i - offset] = parameter.charAt(i);
+            buffer[i - offset + pwd.size()] = parameter.charAt(i);
             i++;
             if (i == buffer.length-1) {
                 newline();
@@ -467,7 +465,9 @@ public class cli extends World {
     }
 
     public int brainfuck(String in) {
-        print(brainfuckInterpreter(in));
+        Arrays.fill(buffer, ' ');
+        newline();
+        brainfuckInterpreter(in);
         return 0;
     }
     public String brainfuckInterpreter(String in) {
@@ -475,49 +475,52 @@ public class cli extends World {
         List<Character> output = new ArrayList<>(List.of());
         int dataPointer = 0x0;
         int loopOpening = 0;
+        int loopClosing = 0;
         if (Util.brainfuckSyntaxCheck(in)) {
             Arrays.fill(array, (char) 0x0);
             for (int instructionPointer = 0x0; instructionPointer < in.length(); instructionPointer++) {
                 switch (in.charAt(instructionPointer)) {
                     case '>':
                         // Increment data pointer by one
-                        if (dataPointer < array.length) {
-                            dataPointer++;
-                        }
-                        else {
+                        //if (dataPointer == array.length - 1) {
                             dataPointer = 0x0;
-                        }
+                        //}
+                        //else {
+                            dataPointer++;
+                        //}
                         break;
                     case '<':
                         // Decrement data pointer by one
-                        if (dataPointer > 0) {
+                        //if (dataPointer == 0) {
+                        //    dataPointer = array.length - 1;
+                        //}
+                        //else {
                             dataPointer--;
-                        }
-                        else {
-                            dataPointer = array.length;
-                        }
+                        //}
                         break;
                     case '+':
                         // Increment the byte at the data pointer
-                        if (dataPointer < +127) {
+                        //if (array[dataPointer] < (byte) +127) {
                             array[dataPointer]++;
-                        }
-                        else {
-                            dataPointer = -128;
-                        }
+                        //}
+                        //else {
+                        //    array[dataPointer] = (byte) -128;
+                        //}
                         break;
                     case '-':
                         // Decrement the byte at the data pointer
-                        if (dataPointer > -128) {
+                        //if (array[dataPointer] > (byte) -128) {
                             array[dataPointer]--;
-                        }
-                        else {
-                            dataPointer = +127;
-                        }
+                        //}
+                        //else {
+                        //    array[dataPointer] = (byte) +127;
+                        //}
                         break;
                     case '.':
                         // Output the byte at the data pointer
-                        output.add(array[instructionPointer]);
+                        //output.add((char)array[instructionPointer]);
+                        System.out.print(array[dataPointer]);
+                        print(Character.toString(array[dataPointer]));
                         break;
                     case ',':
                         // Accept one byte of input
@@ -529,10 +532,13 @@ public class cli extends World {
                         break;
                     case '[':
                         // If the byte at the data pointer is zero, jump the instruction pointer forward to the command after the matching ']' command
-                        loopOpening = instructionPointer;
+                        if (array[dataPointer] == 0) {
+                            loopOpening = loopClosing + 1;
+                        }
                         break;
                     case ']':
                         // Jump the instruction pointer to the command after the matching '[' command
+                        loopClosing = instructionPointer;
                         instructionPointer = loopOpening;
                         break;
                     default:
@@ -542,10 +548,13 @@ public class cli extends World {
             }
         }
         else {
+            print("Syntax Error");
             for (int i = 0; i < "Syntax Error".length(); i++) {
                 output.add("Syntax Error".charAt(i));
             }
         }
-        return output.toString();
+        //System.out.print(output);
+        //return output.toString();
+        return "EOF";
     }
 }
