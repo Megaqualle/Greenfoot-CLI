@@ -29,4 +29,26 @@ public class Util {
         }
         return os;
     }
+    public static boolean brainfuckSyntaxCheck(String in) {
+        boolean loopOpen = false;
+        for (int i = 0; i < in.length(); i++) {
+            switch (in.charAt(i)) {
+                case '[':
+                    if (loopOpen) {
+                        return false;
+                    }
+                    else {
+                        loopOpen = true;
+                    }
+                case ']':
+                    if (!loopOpen) {
+                        return false;
+                    }
+                    else {
+                        loopOpen = false;
+                    }
+            }
+        }
+        return true;
+    }
 }

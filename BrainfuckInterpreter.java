@@ -5,11 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BrainfuckInterpreter {
-    char[] array = new char[30000];
-    List<Character> output = new ArrayList<>(List.of());
-    int dataPointer = 0x0;
-    int loopOpening;
-    public String interpreter(String in) {
+    public String brainfuckInterpreter(String in) {
+        char[] array = new char[30000];
+        List<Character> output = new ArrayList<>(List.of());
+        int dataPointer = 0x0;
+        int loopOpening = 0;
         if (syntaxCheck(in)) {
             Arrays.fill(array, (char) 0x0);
             for (int instructionPointer = 0x0; instructionPointer < in.length(); instructionPointer++) {

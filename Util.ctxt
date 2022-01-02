@@ -4,4 +4,6 @@ comment1.params=in
 comment1.target=void\ panicHandler(int)
 comment2.params=
 comment2.target=Util.OS\ getOS()
-numComments=3
+comment3.params=in
+comment3.target=boolean\ brainfuckSyntaxCheck(java.lang.String)
+numComments=4

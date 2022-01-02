@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=BrainfuckInterpreter
+comment1.params=in
+comment1.target=java.lang.String\ brainfuckInterpreter(java.lang.String)
+comment2.params=in
+comment2.target=boolean\ syntaxCheck(java.lang.String)
+numComments=3
