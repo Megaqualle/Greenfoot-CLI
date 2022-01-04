@@ -1,9 +1,0 @@
-#BlueJ class context
-comment0.target=Util
-comment1.params=in
-comment1.target=void\ panicHandler(int)
-comment2.params=
-comment2.target=Util.OS\ getOS()
-comment3.params=in
-comment3.target=boolean\ brainfuckSyntaxCheck(java.lang.String)
-numComments=4
