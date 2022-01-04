@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=lib
+comment1.params=
+comment1.target=void\ input()
+comment2.params=parameter
+comment2.target=void\ _print(java.lang.String)
+comment3.params=in
+comment3.target=void\ print(java.lang.String)
+comment4.params=in
+comment4.target=void\ println(java.lang.String)
+comment5.params=
+comment5.target=void\ commandCheck()
+comment6.params=
+comment6.target=void\ newline()
+numComments=7

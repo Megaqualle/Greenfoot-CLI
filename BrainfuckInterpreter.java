@@ -1,58 +1,61 @@
 import greenfoot.Greenfoot;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class BrainfuckInterpreter {
-    public String brainfuckInterpreter(String in) {
+    public static String brainfuckInterpreter(String in) {
         char[] array = new char[30000];
-        List<Character> output = new ArrayList<>(List.of());
+        StringBuilder out = new StringBuilder();
         int dataPointer = 0x0;
         int loopOpening = 0;
-        if (syntaxCheck(in)) {
+        int loopClosing = 0;
+        if (Util.brainfuckSyntaxCheck(in)) {
             Arrays.fill(array, (char) 0x0);
-            for (int instructionPointer = 0x0; instructionPointer < in.length(); instructionPointer++) {
+            int instructionPointer = 0;
+            while (instructionPointer < in.length()) {
                 switch (in.charAt(instructionPointer)) {
                     case '>':
                         // Increment data pointer by one
-                        if (dataPointer < array.length) {
-                            dataPointer++;
-                        }
-                        else {
-                            dataPointer = 0x0;
-                        }
+                        //if (dataPointer == array.length - 1) {
+                        //    dataPointer = 0x0;
+                        //}
+                        //else {
+                        dataPointer++;
+                        //}
                         break;
                     case '<':
                         // Decrement data pointer by one
-                        if (dataPointer > 0) {
-                            dataPointer--;
-                        }
-                        else {
-                            dataPointer = array.length;
-                        }
+                        //if (dataPointer == 0) {
+                        //    dataPointer = array.length - 1;
+                        //}
+                        //else {
+                        dataPointer--;
+                        //}
                         break;
                     case '+':
                         // Increment the byte at the data pointer
-                        if (dataPointer < +127) {
-                            array[dataPointer]++;
-                        }
-                        else {
-                            dataPointer = -128;
-                        }
+                        //if (array[dataPointer] < (byte) +127) {
+                        array[dataPointer]++;
+                        //}
+                        //else {
+                        //    array[dataPointer] = (byte) -128;
+                        //}
                         break;
                     case '-':
                         // Decrement the byte at the data pointer
-                        if (dataPointer > -128) {
-                            array[dataPointer]--;
-                        }
-                        else {
-                            dataPointer = +127;
-                        }
+                        //if (array[dataPointer] > (byte) -128) {
+                        array[dataPointer]--;
+                        //}
+                        //else {
+                        //    array[dataPointer] = (byte) +127;
+                        //}
                         break;
                     case '.':
                         // Output the byte at the data pointer
-                        output.add(array[instructionPointer]);
+                        //output.add((char)array[instructionPointer]);
+                        ////System.out.print(array[dataPointer]);
+                        //print(Character.toString(array[dataPointer]));
+                        out.append(array[dataPointer]);
                         break;
                     case ',':
                         // Accept one byte of input
@@ -61,27 +64,36 @@ public class BrainfuckInterpreter {
                         while (byteIn == null) {
                             byteIn = Greenfoot.getKey();
                         }
+                        array[dataPointer] = byteIn.charAt(0);
                         break;
                     case '[':
                         // If the byte at the data pointer is zero, jump the instruction pointer forward to the command after the matching ']' command
-                        loopOpening = instructionPointer;
+                        if (array[dataPointer] == 0) {
+                            instructionPointer = loopClosing;
+                        }
+                        else {
+                            loopOpening = instructionPointer - 1;
+                        }
                         break;
                     case ']':
                         // Jump the instruction pointer to the command after the matching '[' command
+                        loopClosing = instructionPointer;
                         instructionPointer = loopOpening;
                         break;
                     default:
                         // Not an instruction
                         break;
                 }
+                instructionPointer++;
             }
         }
         else {
-            for (int i = 0; i < "Syntax Error".length(); i++) {
-                output.add("Syntax Error".charAt(i));
-            }
+            out = new StringBuilder("Error");
         }
-        return output.toString();
+        ////System.out.print(output);
+        //return output.toString();
+        //System.out.print("\n");
+        return out.toString();
     }
 
     private boolean syntaxCheck(String in) {

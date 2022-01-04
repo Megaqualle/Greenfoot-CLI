@@ -1,6 +1,4 @@
-import greenfoot.*;
-
-import java.util.Objects;
+import greenfoot.Actor;
 
 public class Font extends Actor
 {
@@ -9,7 +7,7 @@ public class Font extends Actor
             setImage("font/dark/127.png");
         }
         else {
-            setImage("font/dark/" + cli.asciiToInt(type) + ".png");
+            setImage("font/dark/" + Util.asciiToInt(type) + ".png");
         }
     }
 }

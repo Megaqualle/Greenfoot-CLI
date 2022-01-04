@@ -1,6 +1,4 @@
-import greenfoot.*;
-
-import java.util.Objects;
+import greenfoot.Actor;
 
 public class Cursor extends Actor
 {
@@ -9,7 +7,7 @@ public class Cursor extends Actor
             setImage("font/light/127.png");
         }
         else {
-                setImage("font/light/" + cli.asciiToInt(type) + ".png");
+            setImage("font/light/" + Util.asciiToInt(type) + ".png");
         }
     }
 }
