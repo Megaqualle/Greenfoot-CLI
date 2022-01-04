@@ -28,11 +28,39 @@ public class Commands {
             case "clear":
                 clear();
                 break;
+            case "cd":
+            case "chdir":
+                FileSystem.cd(parameter);
+                break;
+            case "cargo":
+                Cargo.cargo(parameterToList(parameter));
             default:
                 break;
         }
     }
+    
+    private static List<String> parameterToList(String in) {
+        List<String> out = new ArrayList<>();
+        char[] inChar = in.toCharArray();
 
+        int spaceBefore = 0;
+        int paramLength = 0;
+        int previousParam = 0;
+
+        boolean endOfParam = false;
+        while (endOfParam) {
+            try {
+                spaceBefore = Util.spaceBefore(
+                        spaceBefore + paramLength + previousParam, inChar);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                endOfParam = true;
+            }
+            paramLength = Util.commandLength(
+                    spaceBefore + previousParam, inChar);
+        }
+        return out;
+    }
+    
     private static void brainfuck(String in) {
         Arrays.fill(lib.buffer, ' ');
         lib.println(BrainfuckInterpreter.brainfuckInterpreter(in));
