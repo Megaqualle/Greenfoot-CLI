@@ -59,7 +59,7 @@ public class Util {
         while (target[i] == ' ') {
             out++;
             i++;
-            if (i >= lib.buffer.length-1) {
+            if (i >= target.length-1) {
                 return out;
             }
         }
