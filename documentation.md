@@ -1,6 +1,8 @@
 # Greenfoot-CLI Documentation<br>
 <br>
 This is an attempt at writing a Command Line Interface for Linux with Greenfoot.<br>
+1. [Usage][#Usage]
+2. 
 <br>
 <br>
 ## Usage<br>
