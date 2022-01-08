@@ -30,7 +30,7 @@ public class cli extends World {
             case MAC:
             case WINDOWS:
             case GENERIC:
-                System.out.print("This program can only run on *nix or Windows/DOS Operating Systems");
+                System.out.print("This program can only run on Linux Operating Systems");
                 Greenfoot.stop();
         }
         lib.cursorX = lib.prefix.size();
@@ -45,7 +45,7 @@ public class cli extends World {
         redraw();
     }
 
-    public void redraw() {   // Redraw the screen
+    private void redraw() {   // Redraw the screen
         List<Actor> objects = getObjects(null);
         removeObjects(objects);  // Remove all objects
         for (int i = 0; i < lib.cliMap.length; i++) {   // Write the map onto the screen, (0|0) is top left corner
