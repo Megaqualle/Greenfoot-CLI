@@ -120,10 +120,10 @@ Number that specifies by how much the buffer must be shorter than the length of 
 `static List<Character>`<br>
 List that contains the prefix of the input line.
 <br>
-#### <a name="println">2.2.8 println(String):</a>
+#### <a name="println">2.2.8 println(`String`):</a>
 Prints a String with a newline.
 <br>
-#### <a name="printC">2.2.9 print(String):</a>
+#### <a name="printC">2.2.9 print(`String`):</a>
 Prints a String.
 <br>
 #### <a name="commandCheck">2.2.10 commandCheck():</a>
@@ -138,28 +138,28 @@ Utility commands used in the program.
 #### <a name="os">2.3.1 enum OS/getOS():</a>
 Checks the OS of the machine running the program.
 <br>
-#### <a name="ascii">2.3.2 asciiToInt(char):</a>
+#### <a name="ascii">2.3.2 asciiToInt(`char`):</a>
 returns the US-ASCII value of the input.
 <br>
-#### <a name="brainfuckSyntaxCheck">2.3.3 brainfuckSyntaxCheck(String):</a>
+#### <a name="brainfuckSyntaxCheck">2.3.3 brainfuckSyntaxCheck(`String`):</a>
 Checks the input for invalid brainfuck syntax.
 <br>
-#### <a name="isBetween">2.3.4 isBetween(int, int, int):</a>
+#### <a name="isBetween">2.3.4 isBetween(`int, int, int`):</a>
 Returns wether or not the first int is between the second as the low end and the third as the high end.
 <br>
-#### <a name="spaceBefore">2.3.5 spaceBefore(int, char[]):</a>
+#### <a name="spaceBefore">2.3.5 spaceBefore(`int, char[]`):</a>
 returns the number of spaces before the next non-space character.
 The int is the startpoint of the check, the target is the char array.
 <br>
-#### <a name="commandLength">2.3.6 commandLength(int, char[]):</a>
+#### <a name="commandLength">2.3.6 commandLength(`int, char[]`):</a>
 returns the number of continuus non-space characters after the startpoint.
 The int the startpoint, and the char[] is the target.
 <br>
-#### <a name="spaceAfter">2.3.7 spaceAfter(int, char[]):</a>
+#### <a name="spaceAfter">2.3.7 spaceAfter(`int, char[]`):</a>
 returns the number of spaces before the next non-space character.
 int is the startpoint and char[] is the target.
 <br>
-#### <a name="parameterLength">2.3.8 parameterLength(int, char[]):</a>
+#### <a name="parameterLength">2.3.8 parameterLength(`int, char[]`):</a>
 returns the number of characters after the startpoint.
 int is the startpoint and char[] is the target.
 <br>
@@ -181,7 +181,7 @@ The stack itself.
 `static int`<br>
 The stack pointer.
 <br>
-#### <a name="pushC">2.5.3 push(String):</a>
+#### <a name="pushC">2.5.3 push(`String`):</a>
 Pushes the String onto the stack.
 <br>
 #### <a name="popC">2.5.4 pop():</a>
@@ -190,7 +190,7 @@ Pops the String and prints it.
 ### <a name="brainfuckInterpreter.j">2.6 BrainfuckInterpreter.java:</a>
 Contains the brainfuck interpreter.
 <br>
-#### <a name="brainfuckInterpreterC">2.6.1 brainfuckInterpreter(String):</a>
+#### <a name="brainfuckInterpreterC">2.6.1 brainfuckInterpreter(`String`):</a>
 The interpretation program.
 <br>
 ### <a name="objects">2.7 Objects:</a>
