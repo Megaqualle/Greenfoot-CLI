@@ -51,6 +51,7 @@ This is an attempt at writing a Command Line Interface for Linux with Greenfoot.
       1. [Cursor.java](#cursorOb)
       2. [Font.java](#fontOb)
 <br>
+---
 ## <a name="usage">Usage</a>
 You can clone the repository and open the project.greenfoot file with Greenfoot. Alternatively, you can download the entire Jar and execute it with Java.<br>
 After you start the program, press run to be able to use it.<br>
