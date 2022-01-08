@@ -85,7 +85,6 @@ This commands clears the interface.
 <br>
 <br>
 ## <a name="dev">2 Development</a>
-<br>
 ### <a name="cli">2.1 cli.java</a>
 Contains the World-initialization and Greenfoots act method.
 <br>
