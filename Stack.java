@@ -1,29 +1,32 @@
+/********************************
+ * The stack of the program and *
+ * its methods                  *
+ ********************************/
 public class Stack {
-    static String[] stack = new String[0xff+1];
-    static int stackPointer = 0xff;
+    static String[] stack = new String[0xff+1]; // The stack array
+    static int stackPointer = 0xff; // The stack pointer
 
+    // Push command
     public static void push(String parameter) {
-        stack[stackPointer] = parameter;
-        System.out.print("push: " + stackPointer + "\n");
+        stack[stackPointer] = parameter;    // Writes the input into the stack
+        // Stack wraparound
         if (stackPointer == 0x00) {
             stackPointer = 0xff;
         }
         else {
-            stackPointer--;
+            stackPointer--; // Decrements the stack pointer
         }
     }
 
+    // Pop command
     public static void pop() {
+        // Stack wraparound
         if (stackPointer == 0xff) {
             stackPointer = 0x00;
         }
         else {
-            stackPointer++;
+            stackPointer++;  // Increments the stack pointer
         }
-        System.out.print("pop: " + stackPointer + "\n");
-        /*for (int i = 0; i < stack[stackPointer].length(); i++) {
-            buffer[i+ prefix.size()] = stack[stackPointer].charAt(i);
-        }*/
-        lib.print(stack[stackPointer]);
+        lib.print(stack[stackPointer]); // Prints the output
     }
 }

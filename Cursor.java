@@ -1,5 +1,8 @@
 import greenfoot.Actor;
 
+/*****************
+ * Cursor object *
+ *****************/
 public class Cursor extends Actor
 {
     public Cursor(char type) {

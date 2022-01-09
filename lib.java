@@ -1,16 +1,20 @@
 import greenfoot.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+/*******************************
+ * Main library of the program *
+ *******************************/
 
 public class lib {
     final static char[][] cliMap = new char[64][36];    // Map of displayed characters
     static char[] buffer = new char[cliMap.length - 1];    // Buffer for input
     static int cursorX;   // Position of cursor
-    static List<Character> pwd = new ArrayList<>(List.of()); // Position in fs
-    static List<Character> prefix = new ArrayList<>(List.of());    // Prefix
-    static char[] pwdA = new char[cliMap.length-1];
+    static List<Character> pwd = new ArrayList<>(List.of('~', '/')); // Position in fs
+    static List<Character> prefix = new ArrayList<>(List.of('$', ' '));    // Prefix
+    static char[] pwdA = new char[cliMap.length-1]; // pwd as array
+    // Number by which to reduce array calls to avoid a BufferOverflowException
     static int bufferOverflowProtection = 1;
 
     public static void input() {

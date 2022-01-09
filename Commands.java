@@ -1,9 +1,11 @@
 import greenfoot.Greenfoot;
-
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
+/*****************************
+ * Class that contains the   *
+ * methods for executing     *
+ * commands in the interface *
+ *****************************/
 public class Commands {
     public static void commands(String name, String parameter) {
         switch (name.toLowerCase()) {
@@ -34,6 +36,7 @@ public class Commands {
     }
 
     private static void brainfuck(String in) {
+        // Prepare the buffer and then print the output of the brainfuck interpreter
         Arrays.fill(lib.buffer, ' ');
         lib.println(BrainfuckInterpreter.brainfuckInterpreter(in));
     }
@@ -54,6 +57,7 @@ public class Commands {
         Greenfoot.stop();
     }
     private static void clear() {
+        // Empty the map buffer
         for (int i = 0; i < lib.cliMap.length; i++) {
             for (int j = 0; j < lib.cliMap[0].length; j++) {
                 lib.cliMap[i][j] = ' ';
