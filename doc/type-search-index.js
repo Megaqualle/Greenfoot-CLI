@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"<Unnamed>","l":"BrainfuckInterpreter"},{"p":"<Unnamed>","l":"cli"},{"p":"<Unnamed>","l":"Commands"},{"p":"<Unnamed>","l":"Cursor"},{"p":"<Unnamed>","l":"Font"},{"p":"<Unnamed>","l":"lib"},{"p":"<Unnamed>","l":"Util.OS"},{"p":"<Unnamed>","l":"Stack"},{"p":"<Unnamed>","l":"Util"}]
