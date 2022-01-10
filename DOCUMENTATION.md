@@ -1,7 +1,6 @@
 # Greenfoot-CLI Documentation<br>
 This is an attempt at writing a Command Line Interface for Linux with Greenfoot.<br>
 <br>
-###### [Usage](#usage)
 1. [Commands](#commands)
    1. [brainfuck](#brainfuck)
    2. [push](#push)
