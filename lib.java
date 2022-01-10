@@ -19,8 +19,9 @@ public class lib {
 
     public static void input() {
         String keyboardInput = Greenfoot.getKey();   // Attempt to register a keypress and abort if there were none
-        if (keyboardInput != null) {
+        if (keyboardInput != null) {    // Test if there was an input
                 switch (keyboardInput) {
+                    // Modifier keys that are not being used
                     case "up":
                     case "down":
                     case "control":
@@ -31,48 +32,53 @@ public class lib {
                     case "windows":
                     case "undefined":
                         break;
+                    // Move the cursor to the right
                     case "right":
                         if (cursorX < buffer.length - bufferOverflowProtection) {
                             cursorX++;
                         }
                         break;
+                    // Move the cursor to the left
                     case "left":
                         if (cursorX > prefix.size()) {
                             cursorX--;
                         }
                         break;
-                    case "enter":   // Move everything in the buffer onto the map, and push everything else up by one
+                    // Move everything in the buffer onto the map, and push everything else up by one
+                    case "enter":
+                        // buffer[cursorX] = '\n';
                         newline();
-                        commandCheck();
-                        Arrays.fill(buffer, ' ');   // Empty the input buffer
+                        commandCheck(buffer, prefix.size());
+                        Arrays.fill(buffer, (char)0x0);   // Empty the input buffer
                         cursorX = prefix.size();   // Reset cursor position
                         break;
+                    // Delete the character under the cursor then move it to the left
                     case "backspace":
                         if (cursorX > prefix.size()) {
                             cursorX--;
-                            buffer[cursorX] = ' ';
+                            buffer[cursorX] = 0x0;
                         }
                         break;
+                    // Set the character under the cursor to a space then move it to the right
                     case "space":
                         if (cursorX < buffer.length - bufferOverflowProtection) {
                             buffer[cursorX] = ' ';
                             cursorX++;
                         }
                         break;
+                    // Printable characters
                     default:
-                        char key = keyboardInput.charAt(0);
+                        char key = keyboardInput.charAt(0); // Write String to char
                         if (cursorX < buffer.length - bufferOverflowProtection) { // Check if the input buffer is full
-                            int keyInt = Util.asciiToInt(key);
-                            if (key == ' ') {
-                                buffer[cursorX] = key;  // Write input into buffer
-                            } else if (Util.isBetween(keyInt, 97, 122)) {
+                            int keyInt = Util.asciiToInt(key);  // Write char to int
+                            if (Util.isBetween(keyInt, 97, 122)) {
                                 if (Greenfoot.isKeyDown("shift")) {
-                                    buffer[cursorX] = (char) (keyInt - 32);  // Write input into buffer
+                                    buffer[cursorX] = (char) (keyInt - 32/* Difference between a and A */);  // Write input into buffer
                                 } else {
                                     buffer[cursorX] = key;  // Write input into buffer
                                 }
                             } else {
-                                boolean shift = Greenfoot.isKeyDown("shift");   // Print correct characters while shift-key is pressed, US-ANSI layout version
+                                boolean shift = Greenfoot.isKeyDown("shift");
                                 int keyIntShift = keyInt;
                                 switch (keyInt) {
                                     case 59:
@@ -159,17 +165,18 @@ public class lib {
         }
     }
 
+    // Print command
     private static void _print(String parameter) {
-        //System.out.println("(" + parameter + ")");
         int i = 0;
         int offset = 0;
-        Arrays.fill(buffer, ' ');
+        Arrays.fill(buffer, (char) 0x0);   // Empty the input buffer
         try {
+            // Write the parameter into the buffer
             while (i < parameter.length()) {
                 buffer[i - offset + pwd.size()] = parameter.charAt(i);
                 i++;
                 if (i == buffer.length - 1) {
-                    newline();
+                    newline();  // Print the parameter
                     offset = offset + buffer.length - 1;
                 }
             }
@@ -177,57 +184,65 @@ public class lib {
             System.out.println(e);
         }
     }
-    public static void print(String in) {
-        _print(in);
-    }
+    // Public print command with a newline
     public static void println(String in) {
         _print(in);
         newline();
     }
 
-    public static void commandCheck() {
-        int spaceBefore = Util.spaceBefore(prefix.size(), buffer);
-        int commandLength = Util.commandLength(prefix.size() + spaceBefore, buffer);
-        int spaceAfter = Util.spaceAfter(prefix.size() + spaceBefore + commandLength, buffer);
+    // Splits the input into command and parameter, then execute Commands.commands with these variables
+    public static void commandCheck(char[] in, int startPoint) {
+        int spaceBefore = Util.spaceBefore(startPoint, in);
+        int commandLength = Util.commandLength(startPoint + spaceBefore, in);
+        int spaceAfter = Util.spaceAfter(startPoint + spaceBefore + commandLength, in);
         int parameterLength = Util.parameterLength(
-                prefix.size() + spaceBefore + commandLength + spaceAfter, buffer);
-        char[] commandChar = new char[commandLength];
+                startPoint + spaceBefore + commandLength + spaceAfter, in);
+        char[] command = new char[commandLength];   // char array for the command
+        // Write command into the command array
         for (int i = 0; i < commandLength; i++) {
-            commandChar[i] = buffer[i + spaceBefore + prefix.size()];
+            command[i] = in[i + spaceBefore + startPoint];
         }
-        char[] parameterChar = new char[parameterLength];
+        char[] parameter = new char[parameterLength];   // char array for the parameter
+        // Write parameter into parameter array
         for (int i = 0; i < parameterLength; i++) {
-            parameterChar[i] = buffer[i + spaceBefore + commandLength + spaceAfter];
+            parameter[i] = in[i + spaceBefore + commandLength + spaceAfter + 2];
         }
-        String command = new String(commandChar);
-        String parameter = new String(parameterChar);
-        Commands.commands(command, parameter);
+        String commandString = new String(command);
+        String parameterString = new String(parameter);
+        Commands.commands(commandString, parameterString);
     }
+
+    //
     public static void newline() {
-        char[][] mapBuffer = new char[cliMap.length][cliMap[0].length + 2];   // Buffer for map, y-axis is increased by one
+        // Buffer for map, y-axis is increased by two y
+        char[][] mapBuffer = new char[cliMap.length][cliMap[0].length + 2];
         for (int i = 0; i < mapBuffer.length; i++) {
             for (int j = 0; j < mapBuffer[0].length; j++) {
-                mapBuffer[i][j] = ' ';
+                mapBuffer[i][j] = 0x0;
             }
         }
-        for (int i = 0; i < cliMap.length; i++) {    // Write the map onto the map buffer, moved by two y
+        // Write the map onto the map buffer, moved by two y
+        for (int i = 0; i < cliMap.length; i++) {
             for (int j = 0; j < cliMap[0].length; j++) {
                 mapBuffer[i][j + 2] = cliMap[i][j];
             }
         }
-        for (int i = prefix.size(); i < buffer.length; i++) {    // Write the input buffer onto the map buffer, third row
+        // Write the input buffer onto the map buffer, third row
+        for (int i = prefix.size(); i < buffer.length; i++) {
             mapBuffer[i - prefix.size()][1] = buffer[i];
+        }
+
+        // Write 0x0 into the empty space
+        for (int i = cliMap[0].length; i > cliMap[0].length - prefix.size(); i--) {
+            for (int j = prefix.size(); j > buffer.length - prefix.size(); j--) {
+                mapBuffer[i][j] = 0x0;
+            }
         }
 
         mapBuffer[buffer.length - (prefix.size() + 1)][1] = '\n';  // Place newline character
 
-        for (int i = cliMap[0].length; i > cliMap[0].length - prefix.size(); i--) {
-            for (int j = prefix.size(); j > buffer.length - prefix.size(); j--) {
-                mapBuffer[i][j] = ' ';
-            }
-        }
-
-        for (int i = 0; i < cliMap.length; i++) {   // Write the map buffer back onto the map
+        // Write the map buffer back onto the map
+        for (int i = 0; i < cliMap.length; i++) {
             for (int j = 0; j < cliMap[0].length; j++) {
                 cliMap[i][j] = mapBuffer[i][j];
             }

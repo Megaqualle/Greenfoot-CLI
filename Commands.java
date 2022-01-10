@@ -13,9 +13,11 @@ public class Commands {
                 brainfuck(parameter);
                 break;
             case "push":
+                System.out.print("true");
                 push(parameter);
                 break;
             case "pop":
+                System.out.print("true");
                 pop();
                 break;
             case "echo":
@@ -37,7 +39,7 @@ public class Commands {
 
     private static void brainfuck(String in) {
         // Prepare the buffer and then print the output of the brainfuck interpreter
-        Arrays.fill(lib.buffer, ' ');
+        Arrays.fill(lib.buffer, (char) 0x0);
         lib.println(BrainfuckInterpreter.brainfuckInterpreter(in));
     }
 
@@ -60,7 +62,7 @@ public class Commands {
         // Empty the map buffer
         for (int i = 0; i < lib.cliMap.length; i++) {
             for (int j = 0; j < lib.cliMap[0].length; j++) {
-                lib.cliMap[i][j] = ' ';
+                lib.cliMap[i][j] = (char) 0x0;
             }
         }
     }

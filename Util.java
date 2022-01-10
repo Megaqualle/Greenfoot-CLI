@@ -8,7 +8,8 @@ import greenfoot.Greenfoot;
 public class Util {
     // Get OS to print a warning if it is run on a not supported System
     public enum OS {
-        LINUX, GENERIC
+        LINUX,
+        GENERIC
     }
     static OS os = null;
     public static OS getOS() {
@@ -36,7 +37,7 @@ public class Util {
     public static int spaceBefore(int startPoint, char[] target) {
         int out = 0;
         int i = startPoint;
-        while (target[i] == ' ') {
+        while (target[i] < 33) {
             out++;
             i++;
             if (i >= target.length-1) {
@@ -48,7 +49,7 @@ public class Util {
     public static int commandLength(int startPoint, char[] target) {
         int out = 0;
         int i = startPoint;
-        while (target[i] != ' ') {
+        while (target[i] >= 33) {
             out++;
             i++;
             if (i >= target.length-1) {
@@ -60,7 +61,7 @@ public class Util {
     public static int spaceAfter(int startPoint, char[] target) {
         int out = 0;
         int i = startPoint;
-        while (target[i] == ' ') {
+        while (target[i] < 33) {
             out++;
             i++;
             if (i >= target.length-1) {
