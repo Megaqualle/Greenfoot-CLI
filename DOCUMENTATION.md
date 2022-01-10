@@ -51,7 +51,7 @@ This is an attempt at writing a Command Line Interface for Linux with Greenfoot.
       2. [Font.java](#fontOb)<br>
 
 ## <a name="usage">Usage</a>
-You can clone the repository and open the project.greenfoot file with Greenfoot. Alternatively, you can download the entire Jar and execute it with Java.<br>
+You can clone the repository and open the project.greenfoot file with Greenfoot.<br>
 After you start the program, press run to be able to use it.<br>
 The program can correctly interpret any non-extended US-ASCII input without a modifier key, and with shift as modifier, the input is interpreted as the corresponding character on a US ANSI QWERTY keyboard.<br>
 <br>
