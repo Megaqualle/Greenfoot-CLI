@@ -21,9 +21,8 @@ This is an attempt at writing a Command Line Interface for Linux with Greenfoot.
       6. [bufferOverflowProtection](#bop)
       7. [prefix](#prefix)
       8. [println()](#println)
-      9. [print()](#printC)
-      10. [commandCheck()](#commandCheck)
-      11. [newline()](#newline)
+      9. [commandCheck()](#commandCheck)
+      10. [newline()](#newline)
       
    3. [Util.java](#util)
       1. [enum OS/getOS()](#os)
@@ -121,9 +120,6 @@ Number that specifies by how much the buffer must be shorter than the length of 
 List that contains the prefix of the input line.
 <br>
 #### <a name="println">2.2.8 println(`String`):</a>
-Prints a String with a newline.
-<br>
-#### <a name="printC">2.2.9 print(`String`):</a>
 Prints a String.
 <br>
 #### <a name="commandCheck">2.2.10 commandCheck():</a>
